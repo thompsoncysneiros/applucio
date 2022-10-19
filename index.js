@@ -1,5 +1,5 @@
 const express = require('express');
-const res = require('express/lib/response');
+const res = require('express/lib/response.js');
 
 const app = express();
 const port = 8080;

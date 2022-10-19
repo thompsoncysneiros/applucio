@@ -10,28 +10,28 @@ let cadastros = [
     {
         "id": "001",
         "nome": "Joana Dark",
-        "telefome": "(81)9.9999-9999",
+        "telefone": "(81)9.9999-9999",
         "email": "joana.dark@gmail.com",
         "senha": "joana123@"
     },
     {
         "id": "002",
         "nome": "Albert Einstein",
-        "telefome": "(81)9.9999-9998",
+        "telefone": "(81)9.9999-9998",
         "email": "albert.einstein@gmail.com",
         "senha": "albert123@"
     },
     {
         "id": "003",
         "nome": "Thomas Edson",
-        "telefome": "(81)9.9999-9997",
+        "telefone": "(81)9.9999-9997",
         "email": "thomas.edson@gmail.com",
         "senha": "thomas123@"
     }
 ];
 
 app.get("/cadastro", (req, res) => {
-    res.json(cadastro);
+    res.json(cadastros);
 });
 
 app.post('/cadastro', (req, res) => {
@@ -64,6 +64,53 @@ app.delete('/cadastro/:id', (req,res) => {
         return false;
     });
     res.send("Cadastro apagado com sucesso!");
+});
+
+app.put('/cadastro/:id/:nome/:telefone/:email/:senha', (req,res) => {
+    const id = req.params.id
+    const nome = req.params.nome
+    const telefone = req.params.telefone
+    const email = req.params.email
+    const senha = req.params.senha
+    cadastros = cadastros.filter(cadastro => {
+        if (cadastro.id === id) {
+            if (cadastro.nome === nome) {
+                return;
+            } else {
+                res.json(cadastro.nome,nome)
+            }
+            if (cadastro.telefone === telefone) {
+                return;
+            } else {
+                res.json(cadastro.telefone,telefone)
+            }
+            if (cadastro.email === email) {
+                return;
+            } else {
+                res.json(cadastro.email,email)
+            }
+            if (cadastro.senha === senha) {
+                return;
+            } else {
+                res.json(cadastro.senha,senha)
+            }
+            return;
+        }
+        return false;
+    });
+    res.send("Cadastro editado com sucesso!");
+});
+
+app.patch('/cadastro/:id', (req,res) => {
+    const id = req.params.id
+
+    cadastros = cadastros.filter(cadastro => {
+        if (cadastro.id !== id) {
+            return true;
+        }
+        return false;
+    });
+    res.send("Atributo editado com sucesso!");
 });
 
 app.listen(port, () => console.log("Servidor iniciado na porta ${port}"));
